@@ -1,0 +1,321 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "PI-Backend",
+        "description": "API Rest da locadora de carros",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/estoque": {
+            "description": "Estoque de carros",
+            "get": {
+                "description": "lista em estoque na locadora",
+                "tags": ["Estoque"],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Estoque"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/estoque/{id}": {
+            "get": {
+                "description": "Exibe seu carro em estoque pelo ID",
+                "tags":["Estoque"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Estoque"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não encontrado"
+                    }
+                }
+            }
+        },
+        "/criar/estoque": {
+            "post": {
+                "description": "Adiciona/cria um estoque",
+                "tags": ["Estoque"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Estoque"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cobrança criada",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/atualizar/estoque/{id}": {
+            "put": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "description": "Atualizar quantidade do estoque",
+                "tags": ["Estoque"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Estoque"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Estoque atualizado 100% com sucesso",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Não encontramos seu carro"
+                    }
+                }
+            }
+        },
+        "/excluir/estoque/{id}": {
+            "delete": {
+                "description": "Deleta um Estoque pelo ID",
+                "tags":["Estoque"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "item do estoque deletado com sucesso",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/alugue": {
+            "description": "alugue seu carro",
+            "get": {
+                "description": "lista de carros",
+                "tags":["alugue"],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/alugue"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alugue/{id}": {
+            "get": {
+                "description": "Exibe uma opção pelo ID",
+                "tags":["alugue"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/alugue"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não encontrado"
+                    }
+                }
+            }
+        },
+        "/criar/alugue": {
+            "post": {
+                "description": "Cria um aluguel de carros",
+                "tags": ["alugue"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/alugue"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "carro alugado ",
+                        "content": {}
+                    }
+                }
+             } 
+        },
+        "/atualizar/alugue/{id}": {
+            "put": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "description": "Atualizar carro",
+                "tags": ["alugue"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/alugue"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "aluguel cancelado com sucesso",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Não encontrado"
+                    }
+                }
+            }
+        },
+        "/excluir/alugue/{id}": {
+            "delete": {
+                "description": "Deletar carro que não existe mais, pelo ID",
+                "tags":["alugue"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "carro cancelado com sucesso",
+                        "content": {}
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Estoque": {
+                "type": "object",
+                "properties": {
+                    "retirada": {
+                        "type": "string",
+                        "example": "2014/15"
+                    },
+                    "Modelo": {
+                        "type": "object",
+                        "properties": {
+                            "nome": {
+                                "type": "string",
+                                "example": "carro 1"
+                            }
+                        }
+                    },
+                    "avaliação": {
+                        "type": "string",
+                        "example": "6.8"
+                    },
+                    "Preço": {
+                        "type": "string",
+                        "example": "R$220,00"
+                    }
+                }
+            },
+            "alugue": {
+                "type": "object",
+                "properties": {
+                    "compacto": {
+                        "type": "string",
+                        "example": "11/06/2022"
+                    },
+                    "vencimento": {
+                        "type": "string",
+                        "example": "11/06/2022"
+                    },
+                    "valor": {
+                        "type": "string",
+                        "example": "R$150,00"
+                    },
+                    "situação": {
+                        "type": "string",
+                        "example": "Pago"
+                    }
+                }
+            }
+        }
+    }
+}
