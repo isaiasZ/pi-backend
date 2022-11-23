@@ -1,73 +1,55 @@
-const createError = require('http-errors');
-
-const alugue = [
-    {
-        "id": 1,
-        "retirada": "11/06/2022",
-        "devolução": "22/06/2022",
-        "valor": "R$220,00",
-        "situação": "Pago",
-    },
-    {
-        "id": 2,
-        "retirada": "28/04/2022",
-        "devolução": "28/07/2022",
-        "valor": "R$130,00",
-        "situação": "Pago",
-    },
-    {
-        "id": 3,
-        "retirada": "18/02/2022",
-        "devolução": "19/08/2022",
-        "valor": "R$360,00",
-        "situação": "Atrasado",
-    },
-];
-
-function listarAlugue(req, res, next) {
-    res.json(alugue);
-}
-
-function listarAluguePorId (req, res, next) {
-    const localizar = alugue.find((item) => item.id === Number(req.params.id));
-    if (!localizar) {
-      return res.status(404).json({ msg: "Estoque não localizado" });
+    const { ObjectId } = require('bson');
+    const Aluguel = require('../model/alugueModel');
+    
+    async function criarAlugue(req, res) {
+        const alugue = new Aluguel(req.body);
+        const erros = []
+         await alugue.save()
+         .then(doc => {
+            console.log(doc)
+            return res.status(201).end();
+        })
+         .catch(error => {
+           const msgErro = {};
+            Object.values(error.errors).forEach(({properties}) =>{
+                msgErro[properties.path] = properties.message;
+            });
+            return res.status(422).json(msgErro);
+        });
     }
-    res.json(localizar);
-}
-
-function atualizarAlugue (req, res, next) {
-    const localizar = alugue.find(
-      (alugue) => alugue.id === Number(req.params.id)
-    );
-    if (!localizar) {
-        return res.status(404).json({ msg: "carro não encontrado" });
+    
+    async function listarAlugue(req, res) {
+        await Aluguel.find({})
+        .then(alugue => {return res.json(alugue);})
+        .catch(error => {return res.status(500).json({error}); });
     }
-    localizar.retirada = req.body.retirada;
-    localizar.devolução = req.body.devolução;
-    localizar.valor = req.body.valor;
-    localizar.situação = req.body.situação;
-    res.status(200).json({ msg: "carro atualizado com sucesso" });
-  }
-  function criarAlugue (req, res, next){
-    const novaoAlugue  = {
-    id: alugue[alugue.length-1].id + 1,
-    retirada: req.body.retirada,
-    devolução: req.body.devolução,
-    valor: req.body.valor,
-    situação: req.body.situação,
+    
+    async function listarAluguePorId(req, res) {
+        await Aluguel.findOne({_id: ObjectId(req.params.id)})
+        .then(alugue => {
+            if(alugue) return res.json(alugue);
+            else return res.status(404).json('Aluguel nao localizado')
+        })
+        .catch(error => {return res.status(500).json({error}); });
     }
-    alugue.push(novaoAlugue);
-    res.status(201).json(novaoAlugue);
-}
-
-function removerAlugue (req, res, next) {
-    const localizar = alugue.findIndex(alugue => alugue.id === Number(req.params.id));
-    if(localizar < 0){
-            return res.status(404).json({msg:"carro não existe"});
+    
+    async function atualizarAlugue(req, res) {
+        await Aluguel.findOneAndUpdate({_id: ObjectId(req.params.id)}, req.body,
+        {runValidators: true})
+        .then(alugue => {
+            if(alugue) return res.status(204).end();
+            else return res.status(404).json('Aluguel atualizado com sucesso!')
+        })
+        .catch(error => {return res.status(500).json({error}); });
     }
-    alugue.splice(localizar, 1);
-    res.status(200).json({msg:"carro excluído com sucesso"});
-}
-
-module.exports = { listarAlugue, listarAluguePorId, criarAlugue, atualizarAlugue, removerAlugue};
+    
+    async function removerAlugue(req, res) {
+        await Aluguel.findOneAndDelete({_id: ObjectId(req.params.id)})
+        .then(alugue => {
+            if(alugue) return res.status(204).end();
+            else return res.status(404).json('Aluguel deletado com sucesso!')
+        })
+        .catch(error => {return res.status(500).json({error}); });
+    }
+    
+    module.exports = { listarAlugue, listarAluguePorId, criarAlugue, atualizarAlugue, removerAlugue};
