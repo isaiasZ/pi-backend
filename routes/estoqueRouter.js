@@ -4,14 +4,14 @@ const auth = require('../middlewares/auth');
 const estoqueController = require('../controllers/estoqueController');
 
 
-router.get('/estoque', auth,  estoqueController.listarEstoque );
+router.get('/', auth,  estoqueController.listarEstoque );
 
-router.get('/estoque/:id', auth,  estoqueController.listarEstoquesPorId);
+router.get('/:id', auth,  estoqueController.listarEstoquesPorId);
 
-router.post('/estoque', auth,  estoqueController.criarEstoque);
+router.post('/', auth,  estoqueController.criarEstoque);
 
-router.put('/estoque/:id', auth,  estoqueController.atualizarEstoques);
+router.put('/:id', auth,  estoqueController.atualizarEstoques);
 
-router.delete('/estoque/:id', auth,  estoqueController.removerEstoques);
+router.delete('/:id', auth,  estoqueController.removerEstoques);
 
 module.exports = router;

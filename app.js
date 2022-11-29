@@ -15,12 +15,12 @@ var routerUser = require('./routes/UsersRouter');
 const app = express();
 app.use(express.json());
        
-app.use('/locadora-de-carros', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/locadora', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/', indexRouter);
-app.use('/', routerAlugue);
-app.use('/', routerEstoque);
-app.use('/', routerUser);
+app.use('/alugue', routerAlugue);
+app.use('/estoque', routerEstoque);
+app.use('/auth', routerUser);
 
 mongoose.connect(config.url)
     .then(app.listen(config.porta,() =>{
