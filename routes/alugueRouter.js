@@ -5,14 +5,14 @@ const alugueController = require('../controllers/alugueController');
 
 const app = express();
 
-router.get('/alugue', auth, alugueController.listarAlugue );
+router.get('/', auth, alugueController.listarAlugue );
 
-router.get('/alugue/:id', auth,  alugueController.listarAluguePorId );
+router.get('/:id', auth,  alugueController.listarAluguePorId );
 
-router.post('/alugue', auth,  alugueController.criarAlugue);
+router.post('/', auth,  alugueController.criarAlugue);
 
-router.put('/alugue/:id', auth,  alugueController.atualizarAlugue);
+router.put('/:id', auth,  alugueController.atualizarAlugue);
         
-router.delete('/alugue/:id', auth,  alugueController.removerAlugue);
+router.delete('/:id', auth,  alugueController.removerAlugue);
 
 module.exports = router;
