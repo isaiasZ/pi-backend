@@ -6,11 +6,11 @@
         "version": "0.0.1"
     },
     "paths": {
-        "/estoque": {
-            "description": "Estoque de carros",
+        "/frota": {
+            "description": "frota de carros",
             "get": {
-                "description": "lista em estoque na locadora",
-                "tags": ["Estoque"],
+                "description": "lista em frota de carros na locadora",
+                "tags": ["frota"],
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -19,7 +19,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Estoque"
+                                        "$ref": "#/components/schemas/frota"
                                     }
                                 }
                             }
@@ -28,10 +28,10 @@
                 }
             }
         },
-        "/estoque/{id}": {
+        "/frota/{id}": {
             "get": {
-                "description": "Exibe seu carro em estoque pelo ID",
-                "tags":["Estoque"],
+                "description": "Exibe seu carro na frota pelo ID",
+                "tags":["frota"],
                 "parameters": [
                     {
                         "name": "id",
@@ -48,7 +48,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Estoque"
+                                    "$ref": "#/components/schemas/frota"
                                 }
                             }
                         }
@@ -59,15 +59,15 @@
                 }
             }
         },
-        "/criar/estoque": {
+        "/criar/frota": {
             "post": {
-                "description": "Adiciona/cria um estoque",
-                "tags": ["Estoque"],
+                "description": "consultar os dados da frota de veiculos",
+                "tags": ["frota"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Estoque"
+                                "$ref": "#/components/schemas/frota"
                             }
                         }
                     }
@@ -80,7 +80,7 @@
                 }
             }
         },
-        "/atualizar/estoque/{id}": {
+        "/atualizar/frota/{id}": {
             "put": {
                 "parameters": [
                     {
@@ -92,32 +92,32 @@
                         }
                     }
                 ],
-                "description": "Atualizar quantidade do estoque",
-                "tags": ["Estoque"],
+                "description": "Atualizar quantidade de carros na frota",
+                "tags": ["frota"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Estoque"
+                                "$ref": "#/components/schemas/frota"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "Estoque atualizado 100% com sucesso",
+                        "description": "frota atualizada 100% com sucesso",
                         "content": {}
                     },
                     "404": {
-                        "description": "Não encontramos seu carro"
+                        "description": "Não encontrado"
                     }
                 }
             }
         },
         "/excluir/estoque/{id}": {
             "delete": {
-                "description": "Deleta um Estoque pelo ID",
-                "tags":["Estoque"],
+                "description": "Deleta um frota pelo ID",
+                "tags":["frota"],
                 "parameters": [
                     {
                         "name": "id",
@@ -130,17 +130,17 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "item do estoque deletado com sucesso",
+                        "description": "item da frota deletado com sucesso",
                         "content": {}
                     }
                 }
             }
         },
-        "/alugue": {
-            "description": "alugue seu carro",
+        "/aluguel": {
+            "description": "aluguel seu carro",
             "get": {
                 "description": "lista de carros",
-                "tags":["alugue"],
+                "tags":["aluguel"],
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -149,7 +149,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/alugue"
+                                        "$ref": "#/components/schemas/aluguel"
                                     }
                                 }
                             }
@@ -158,10 +158,10 @@
                 }
             }
         },
-        "/alugue/{id}": {
+        "/aluguel/{id}": {
             "get": {
                 "description": "Exibe uma opção pelo ID",
-                "tags":["alugue"],
+                "tags":["aluguel"],
                 "parameters": [
                     {
                         "name": "id",
@@ -178,7 +178,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/alugue"
+                                    "$ref": "#/components/schemas/aluguel"
                                 }
                             }
                         }
@@ -189,15 +189,15 @@
                 }
             }
         },
-        "/criar/alugue": {
+        "/criar/aluguel": {
             "post": {
                 "description": "Cria um aluguel de carros",
-                "tags": ["alugue"],
+                "tags": ["aluguel"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/alugue"
+                                "$ref": "#/components/schemas/aluguel"
                             }
                         }
                     }
@@ -210,7 +210,7 @@
                 }
              } 
         },
-        "/atualizar/alugue/{id}": {
+        "/atualizar/aluguel/{id}": {
             "put": {
                 "parameters": [
                     {
@@ -223,12 +223,12 @@
                     }
                 ],
                 "description": "Atualizar carro",
-                "tags": ["alugue"],
+                "tags": ["aluguel"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/alugue"
+                                "$ref": "#/components/schemas/aluguel"
                             }
                         }
                     }
@@ -244,10 +244,10 @@
                 }
             }
         },
-        "/excluir/alugue/{id}": {
+        "/excluir/aluguel/{id}": {
             "delete": {
                 "description": "Deletar carro que não existe mais, pelo ID",
-                "tags":["alugue"],
+                "tags":["aluguel"],
                 "parameters": [
                     {
                         "name": "id",
@@ -269,7 +269,7 @@
     },
     "components": {
         "schemas": {
-            "Estoque": {
+            "frota": {
                 "type": "object",
                 "properties": {
                     "retirada": {
@@ -295,7 +295,7 @@
                     }
                 }
             },
-            "alugue": {
+            "aluguel": {
                 "type": "object",
                 "properties": {
                     "compacto": {

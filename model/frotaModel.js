@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
-const estoqueSchema = new Schema({
+const frotaSchema = new Schema({
     compacto: {
         type: String,
         required: [true, 'Email não informado'],
@@ -32,4 +32,4 @@ const estoqueSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model("Estoque", estoqueSchema);
+module.exports = mongoose.model("Frota", frotaSchema);

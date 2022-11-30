@@ -8,8 +8,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 var indexRouter = require('./routes/indexRoutes');
-var routerAlugue = require('./routes/alugueRouter');
-var routerEstoque = require('./routes/estoqueRouter');
+var routerAluguel = require('./routes/AluguelRouter');
+var routerfrota = require('./routes/frotaRouter');
 var routerUser = require('./routes/UsersRouter');
 
 const app = express();
@@ -18,8 +18,8 @@ app.use(express.json());
 app.use('/locadora', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/', indexRouter);
-app.use('/alugue', routerAlugue);
-app.use('/estoque', routerEstoque);
+app.use('/aluguel', routerAluguel);
+app.use('/frota', routerfrota);
 app.use('/auth', routerUser);
 
 mongoose.connect(config.url)
