@@ -1,10 +1,10 @@
     const { ObjectId } = require('bson');
-    const Aluguel = require('../model/alugueModel');
+    const Aluguel = require('../model/aluguelModel');
     
-    async function criarAlugue(req, res) {
-        const alugue = new Aluguel(req.body);
+    async function criarAluguel(req, res) {
+        const aluguel = new Aluguel(req.body);
         const erros = []
-         await alugue.save()
+         await aluguel.save()
          .then(doc => {
             console.log(doc)
             return res.status(201).end();
@@ -18,38 +18,38 @@
         });
     }
     
-    async function listarAlugue(req, res) {
+    async function listarAluguel(req, res) {
         await Aluguel.find({})
         .then(alugue => {return res.json(alugue);})
         .catch(error => {return res.status(500).json({error}); });
     }
     
-    async function listarAluguePorId(req, res) {
+    async function listarAluguelPorId(req, res) {
         await Aluguel.findOne({_id: ObjectId(req.params.id)})
-        .then(alugue => {
-            if(alugue) return res.json(alugue);
+        .then(aluguel => {
+            if(aluguel) return res.json(aluguel);
             else return res.status(404).json('Aluguel nao localizado')
         })
         .catch(error => {return res.status(500).json({error}); });
     }
     
-    async function atualizarAlugue(req, res) {
+    async function atualizarAluguel(req, res) {
         await Aluguel.findOneAndUpdate({_id: ObjectId(req.params.id)}, req.body,
         {runValidators: true})
-        .then(alugue => {
-            if(alugue) return res.status(204).end();
+        .then(aluguel => {
+            if(aluguel) return res.status(204).end();
             else return res.status(404).json('Aluguel atualizado com sucesso!')
         })
         .catch(error => {return res.status(500).json({error}); });
     }
     
-    async function removerAlugue(req, res) {
+    async function removerAluguel(req, res) {
         await Aluguel.findOneAndDelete({_id: ObjectId(req.params.id)})
-        .then(alugue => {
-            if(alugue) return res.status(204).end();
+        .then(aluguel => {
+            if(aluguel) return res.status(204).end();
             else return res.status(404).json('Aluguel deletado com sucesso!')
         })
         .catch(error => {return res.status(500).json({error}); });
     }
     
-    module.exports = { listarAlugue, listarAluguePorId, criarAlugue, atualizarAlugue, removerAlugue};
+    module.exports = { listarAluguel, listarAluguelPorId, criarAluguel, atualizarAluguel, removerAluguel};
